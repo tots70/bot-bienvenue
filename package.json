@@ -1,9 +1,10 @@
 {
   "name": "bienvenuebot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Bot Discord pour accueillir les membres",
+  "main": "Messagebienvenue.js",
   "scripts": {
+    "start": "node Messagebienvenue.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
