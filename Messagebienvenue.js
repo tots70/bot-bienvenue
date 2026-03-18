@@ -68,7 +68,7 @@ client.on('guildMemberAdd', member => {
 const URL = "https://bot-bienvenue-reel.onrender.com";
 
 setInterval(() => {
-  axios.get(URL)
+  fetch("https://bot-bienvenue-reel.onrender.com")
     .then(() => console.log("🔁 Ping OK"))
     .catch(() => console.log("❌ Ping failed"));
-}, 4 * 60 * 1000); // toutes les 4 minutes
+}, 4 * 60 * 1000);
