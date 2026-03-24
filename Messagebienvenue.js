@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // 🌐 Serveur web (pour Render + UptimeRobot)
 app.get("/", (req, res) => {
-  res.status(200).send("OK");
+  res.status(200).send("Bot en ligne ✅");
 });
 
 app.listen(PORT, () => {
@@ -30,8 +30,6 @@ const WELCOME_CHANNEL_ID = "1480204926696165629";
 // 🔥 Quand le bot est prêt
 client.on('ready', () => {
   console.log(`✅ Connecté en tant que ${client.user.tag}`);
-  
-  // Activité du bot (optionnel mais stylé)
   client.user.setActivity("POG Family 🚀");
 });
 
@@ -54,21 +52,25 @@ client.on('guildMemberAdd', member => {
 // 🚀 Connexion du bot
 (async () => {
   try {
-    if (!process.env.TOKEN) {
-      throw new Error("TOKEN manquant dans les variables d'environnement !");
-    }
-
+    if (!process.env.TOKEN) throw new Error("TOKEN manquant !");
     await client.login(process.env.TOKEN);
   } catch (err) {
     console.log("❌ Erreur de connexion :", err);
   }
 })();
 
-// 🔁 Auto-ping (remplace TON-URL par ton lien Render)
-const URL = "https://bot-bienvenue-reel.onrender.com";
-
+// 🔁 Keep Alive (ping automatique pour Render gratuit)
+const URL = "https://bot-bienvenue-reel.onrender.com"; // Remplace par ton URL si différente
 setInterval(() => {
-  fetch("https://bot-bienvenue-reel.onrender.com")
+  axios.get(URL)
     .then(() => console.log("🔁 Ping OK"))
     .catch(() => console.log("❌ Ping failed"));
-}, 4 * 60 * 1000);
+}, 4 * 60 * 1000); // toutes les 4 minutes
+
+// ⚠️ Gestion des erreurs pour éviter crash
+process.on("unhandledRejection", (err) => {
+  console.log("❌ Unhandled Rejection:", err);
+});
+process.on("uncaughtException", (err) => {
+  console.log("❌ Uncaught Exception:", err);
+});
